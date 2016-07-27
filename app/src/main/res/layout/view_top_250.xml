@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/selector_setting_item"
+    >
+
+    <ImageView
+        android:id="@+id/iv_movie_icon"
+        android:layout_width="60dp"
+        android:layout_height="90dp"
+        android:layout_margin="@dimen/dimen_10"
+        android:scaleType="fitXY"
+        android:src="@mipmap/black_swan" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_movie_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="name" />
+
+        <TextView
+            android:id="@+id/tv_movie_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10" />
+
+        <TextView
+            android:id="@+id/tv_movie_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="5.2 分" />
+
+    </LinearLayout>
+</LinearLayout>

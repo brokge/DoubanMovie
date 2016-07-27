@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/dimen_15">
+    <ImageView
+        android:id="@+id/iv_usr_avatar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:src="@mipmap/usr_avatar"
+        android:contentDescription="@string/app_name" />
+    <TextView
+        android:id="@+id/tv_usr_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="小小的明"
+        android:layout_toRightOf="@id/iv_usr_avatar"/>
+    <TextView
+        android:id="@+id/tv_usr_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_usr_name"
+        android:layout_marginTop="12dp"
+        android:layout_alignLeft="@id/tv_usr_name"
+        tools:text="不错的电影，女主很漂亮"/>
+</RelativeLayout>

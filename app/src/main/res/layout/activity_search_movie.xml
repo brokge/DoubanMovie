@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/dimen_15">
+    <LinearLayout
+        android:id="@+id/ll_input"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/index_search_icon"
+            android:drawablePadding="@dimen/dimen_10"
+            android:hint="@string/input_movie_name"
+            android:textColorHint="@color/color_666666"
+            android:background="@null"/>
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_input"
+        android:layout_marginTop="@dimen/dimen_10"/>
+</RelativeLayout>

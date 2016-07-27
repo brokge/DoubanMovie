@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:stateListAnimator="@animator/raise">
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_movie_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:paddingBottom="8dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_movie_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:paddingBottom="8dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+</FrameLayout>

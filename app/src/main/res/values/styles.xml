@@ -1,0 +1,45 @@
+<resources>
+
+
+    <style name="AppTheme.Detail" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/ActionbarStyle</item>
+    </style>
+
+    <style name="ActionbarStyle" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="displayOptions">showHome|homeAsUp|showTitle</item>
+        <item name="elevation">0dp</item>
+        <item name="background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="TextAppearance.Small" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- toolbar标题样式 -->
+    <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

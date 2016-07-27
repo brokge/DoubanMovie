@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_10">
+    <ImageView
+        android:id="@+id/iv_movie_icon"
+        android:layout_width="110dp"
+        android:layout_height="183dp"
+        tools:src="@mipmap/black_swan"
+        android:scaleType="fitEnd"
+        android:contentDescription="@string/app_name" />
+    <TextView
+        android:id="@+id/tv_movie_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:includeFontPadding="false"
+        tools:text="刺杀金正恩"/>
+    <TextView
+        android:id="@+id/tv_movie_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        tools:text="8.1 分"/>
+</LinearLayout>
