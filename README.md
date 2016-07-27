@@ -1,4 +1,4 @@
-# 快递查询小工具
+# 豆瓣电影
 
 
 
@@ -40,11 +40,6 @@ https://developers.douban.com/wiki/?title=movie_v2#subject
 
 
 
-#### 短评
-
-https://developers.douban.com/wiki/?title=movie_v2#comments
-
-
 
 ## 原型图
 
@@ -52,18 +47,13 @@ https://developers.douban.com/wiki/?title=movie_v2#comments
 
 首页
 
-![https://gracecode.b0.upaiyun.com/2016_05_19/1463628438.png](https://gracecode.b0.upaiyun.com/2016_05_19/1463628438.png)
-
 
 
 搜索页
 
-![https://gracecode.b0.upaiyun.com/2016_05_19/1463628455.png](https://gracecode.b0.upaiyun.com/2016_05_19/1463628455.png)
+
 
 详情页
-
-![https://gracecode.b0.upaiyun.com/2016_05_19/1463628462.png](https://gracecode.b0.upaiyun.com/2016_05_19/1463628462.png)
-
 
 
 ## 更新记录
@@ -77,4 +67,3 @@ https://developers.douban.com/wiki/?title=movie_v2#comments
 ###  2016 年 05 月 09 日
 
 项目初始化，添加 Hello, world!
-
