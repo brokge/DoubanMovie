@@ -41,19 +41,9 @@ https://developers.douban.com/wiki/?title=movie_v2#subject
 
 
 
-## 原型图
+## 效果图
 
-
-
-首页
-
-
-
-搜索页
-
-
-
-详情页
+![效果图](https://github.com/brokge/example-douban-movie/blob/master/capture/device.gif?raw=true)
 
 
 ## 更新记录
