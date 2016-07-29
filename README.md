@@ -2,12 +2,16 @@
 
 
 
-针对《给程序员的 Android 入门》的配套代码
+针对《给程序员的 Android 入门》的配套代码。
 
 
 
-目前程序的目标是做个豆瓣电影客户端（包含热门电影、搜索等功能）。
+目前程序的目标是做个豆瓣电影客户端（包含热门电影、将要上映、排行榜等功能）。
 
+
+## 效果图
+
+![效果图](https://github.com/brokge/example-douban-movie/blob/master/capture/device.gif?raw=true)
 
 
 ## 接口定义
@@ -26,12 +30,18 @@
 
 https://developers.douban.com/wiki/?title=movie_v2#in_theaters
 
+### 即将上映
+
+https://developers.douban.com/wiki/?title=movie_v2#coming_soon
+
+#### top250
+
+https://developers.douban.com/wiki/?title=movie_v2#top250
 
 
-#### 搜索
+### 北美票房榜
 
-https://developers.douban.com/wiki/?title=movie_v2#search
-
+https://developers.douban.com/wiki/?title=movie_v2#us-box
 
 
 #### 电影详情
@@ -40,18 +50,7 @@ https://developers.douban.com/wiki/?title=movie_v2#subject
 
 
 
-
-## 效果图
-
-![效果图](https://github.com/brokge/example-douban-movie/blob/master/capture/device.gif?raw=true)
-
-
 ## 更新记录
-
-### 2016 年 05 月 19 日
-
-添加接口章节以及原型图（草案）
-
 
 
 ###  2016 年 05 月 09 日
