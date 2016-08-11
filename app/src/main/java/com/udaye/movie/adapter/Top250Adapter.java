@@ -6,11 +6,14 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.udaye.movie.R;
 import com.udaye.movie.entity.Top250Bean;
 import com.udaye.movie.ui.main.MovieDetailActivity;
+import com.udaye.tablet.superloadlibrary.CommonViewHolder;
+import com.udaye.tablet.superloadlibrary.RecyclerViewCommonAdapter;
 
 /**
  * top 250
@@ -24,6 +27,10 @@ public class Top250Adapter extends RecyclerViewCommonAdapter<Top250Bean.Subjects
      */
     public Top250Adapter(Context mContext, List<Top250Bean.SubjectsBean> list) {
         super(mContext, list, R.layout.view_top_250);
+    }
+
+    public void update(List<Top250Bean.SubjectsBean> list) {
+        addList((ArrayList<Top250Bean.SubjectsBean>) list);
     }
 
     @Override

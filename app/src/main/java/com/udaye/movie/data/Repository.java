@@ -8,6 +8,7 @@ import com.udaye.movie.entity.MovieDetailBean;
 import com.udaye.movie.entity.TheatersMoive;
 import com.udaye.movie.entity.Top250Bean;
 import com.udaye.movie.entity.UsBoxBean;
+
 import rx.Observable;
 
 /**
@@ -31,7 +32,7 @@ public interface Repository {
      * @param count
      * @return
      */
-    Observable<List<CommonBean.SubjectsBean>> getCommingSoonMovie(int start, int count);
+    Observable<CommonBean> getCommingSoonMovie(int start, int count);
 
     /**
      * 获取文章详情

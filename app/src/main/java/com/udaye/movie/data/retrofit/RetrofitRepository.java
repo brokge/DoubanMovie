@@ -47,14 +47,14 @@ public class RetrofitRepository implements Repository {
     }
 
     @Override
-    public Observable<List<CommonBean.SubjectsBean>> getCommingSoonMovie(int start, int count) {
-        return mMovieApiService.getCommongSoonMovie(start, count)
-                .map(new Func1<CommonBean, List<CommonBean.SubjectsBean>>() {
+    public Observable<CommonBean> getCommingSoonMovie(int start, int count) {
+        return mMovieApiService.getCommongSoonMovie(start, count);
+               /* .map(new Func1<CommonBean, List<CommonBean.SubjectsBean>>() {
                     @Override
                     public List<CommonBean.SubjectsBean> call(CommonBean commonBean) {
                         return commonBean.getSubjects();
                     }
-                });
+                });*/
     }
 
     @Override

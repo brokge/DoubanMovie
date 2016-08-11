@@ -20,10 +20,11 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import com.udaye.movie.R;
-import com.udaye.movie.adapter.BaseRclViewAdapter;
-import com.udaye.movie.adapter.CommonViewHolder;
 import com.udaye.movie.entity.MovieDetailBean;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
+import com.udaye.tablet.superloadlibrary.CommonViewHolder;
+import com.udaye.tablet.superloadlibrary.RecyclerViewCommonAdapter;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -204,20 +205,22 @@ public class MovieDetailActivity extends BaseActivity {
         return true;
     }
 
-    private class ArtAdapter extends BaseRclViewAdapter<MovieDetailBean.CastsBean> {
+    private class ArtAdapter extends RecyclerViewCommonAdapter<MovieDetailBean.CastsBean> {
 
         public ArtAdapter(Context context, List<MovieDetailBean.CastsBean> data) {
             super(context, data, R.layout.view_list_cast_item);
         }
 
         @Override
-        public void onItemBindViewHolder(CommonViewHolder holder, int position) {
+        public void onListBindViewHolder(CommonViewHolder holder, int position) {
             final MovieDetailBean.CastsBean castsBean = getItem(position);
             if (castsBean != null) {
                 if (castsBean.getAvatars() != null) {
-                    holder.loadImageUrl(mContext, R.id.iv_cast_image, castsBean.getAvatars().getLarge());
+                    ImageView castImageView = holder.getView(R.id.iv_cast_image);
+                    Glide.with(mContext).load(castsBean.getAvatars().getLarge()).placeholder(android.R.color.white).into(castImageView);
+                    //holder.loadImageUrl(mContext, R.id.iv_cast_image, castsBean.getAvatars().getLarge());
                 } else {
-                    holder.setImageSrc(R.id.iv_cast_image, R.drawable.default_large);
+                    holder.setImageRes(R.id.iv_cast_image, R.drawable.default_large);
                 }
                 holder.setText(R.id.tv_cast_name, castsBean.getName());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -234,7 +237,7 @@ public class MovieDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mRepository!=null){
+        if (mRepository != null) {
         }
     }
 }

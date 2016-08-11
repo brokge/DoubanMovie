@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created  on 16/7/12.
  */
-public class Top250Bean {
+public class Top250Bean extends PageBean {
 
 
     /**
@@ -16,9 +16,7 @@ public class Top250Bean {
      * title : 豆瓣电影Top250
      */
 
-    private int count;
-    private int start;
-    private int total;
+
     private String title;
     /**
      * rating : {"max":10,"average":9.6,"stars":"50","min":0}
@@ -36,30 +34,6 @@ public class Top250Bean {
      */
 
     private List<SubjectsBean> subjects;
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
     public String getTitle() {
         return title;

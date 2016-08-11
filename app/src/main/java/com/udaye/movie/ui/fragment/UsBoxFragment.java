@@ -3,31 +3,32 @@ package com.udaye.movie.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.udaye.movie.R;
 import com.udaye.movie.adapter.UsBoxAdapter;
 import com.udaye.movie.entity.UsBoxBean;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
+import com.udaye.tablet.superloadlibrary.LinearRecyclerView;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
  * 北美排行榜
- * <p>
+ * <p/>
  * Created on 16/7/12.
  */
 public class UsBoxFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     List<UsBoxBean.SubjectsBean> mList;
-    RecyclerView recyclerView;
+    LinearRecyclerView recyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     UsBoxAdapter usBoxAdapter;
 
@@ -43,7 +44,7 @@ public class UsBoxFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_top250, null);
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_recyclerview);
+        recyclerView = (LinearRecyclerView) view.findViewById(R.id.rv_recyclerview);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -52,6 +53,8 @@ public class UsBoxFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new GridMarginDecoration(
                 getResources().getDimensionPixelSize(R.dimen.grid_item_spacing_1)));
         recyclerView.setHasFixedSize(true);
@@ -61,6 +64,9 @@ public class UsBoxFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     public void onRefresh() {
+        if (usBoxAdapter != null) {
+            usBoxAdapter.clear();
+        }
         requestData();
     }
 
@@ -69,7 +75,7 @@ public class UsBoxFragment extends BaseFragment implements SwipeRefreshLayout.On
             @Override
             public void run() {
                 mSwipeRefreshLayout.setRefreshing(true);
-                requestData();
+                onRefresh();
             }
         });
     }
@@ -103,7 +109,7 @@ public class UsBoxFragment extends BaseFragment implements SwipeRefreshLayout.On
                                 usBoxAdapter = new UsBoxAdapter(getContext(), mList);
                                 recyclerView.setAdapter(usBoxAdapter);
                             } else {
-                                usBoxAdapter.update((ArrayList<UsBoxBean.SubjectsBean>) mList);
+                                usBoxAdapter.update(mList);
                             }
                         }
                     }

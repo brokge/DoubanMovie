@@ -3,11 +3,14 @@ package com.udaye.movie.adapter;
 import android.content.Context;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.udaye.movie.R;
 import com.udaye.movie.entity.UsBoxBean;
 import com.udaye.movie.ui.main.MovieDetailActivity;
+import com.udaye.tablet.superloadlibrary.CommonViewHolder;
+import com.udaye.tablet.superloadlibrary.RecyclerViewCommonAdapter;
 
 /**
  * 北美排行榜
@@ -22,7 +25,9 @@ public class UsBoxAdapter extends RecyclerViewCommonAdapter<UsBoxBean.SubjectsBe
     public UsBoxAdapter(Context mContext, List<UsBoxBean.SubjectsBean> list) {
         super(mContext, list, R.layout.view_rank_item);
     }
-
+    public void update(List<UsBoxBean.SubjectsBean> list) {
+        addList((ArrayList<UsBoxBean.SubjectsBean>) list);
+    }
     @Override
     public void onListBindViewHolder(CommonViewHolder holder, int position) {
         final UsBoxBean.SubjectsBean subjectsBean = getItem(position);

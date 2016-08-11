@@ -10,17 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.udaye.tablet.superloadlibrary.GridRecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:clipToPadding="false"
             android:orientation="vertical"
             android:padding="@dimen/grid_item_spacing"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
-            app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="3" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

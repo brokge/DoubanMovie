@@ -3,7 +3,7 @@ package com.udaye.movie.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,10 @@ import com.udaye.movie.R;
 import com.udaye.movie.adapter.Top250Adapter;
 import com.udaye.movie.entity.Top250Bean;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
+import com.udaye.tablet.superloadlibrary.LinearRecyclerView;
+import com.udaye.tablet.superloadlibrary.OnLoadMoreListener;
+import com.udaye.tablet.superloadlibrary.SuperRecyclerView;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,11 +30,12 @@ import rx.schedulers.Schedulers;
  */
 public class Top250Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    RecyclerView recyclerView;
+    LinearRecyclerView recyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     Top250Adapter top250Adapter;
 
     List<Top250Bean.SubjectsBean> mList;
+    Top250Bean mTop250Bean;
 
     public static Top250Fragment newInstance() {
 
@@ -45,7 +50,7 @@ public class Top250Fragment extends BaseFragment implements SwipeRefreshLayout.O
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_top250, null);
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_recyclerview);
+        recyclerView = (LinearRecyclerView) view.findViewById(R.id.rv_recyclerview);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -54,16 +59,32 @@ public class Top250Fragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new GridMarginDecoration(
                 getResources().getDimensionPixelSize(R.dimen.grid_item_spacing)));
         recyclerView.setHasFixedSize(true);
+        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(SuperRecyclerView recyclerView) {
+                if (mTop250Bean != null && mTop250Bean.isHasNext()) {
+                    recyclerView.showFootProgress();
+                    requestData(mTop250Bean.getNextIndex(), 20);
+                } else {
+                    recyclerView.showFootProgressEnd();
+                }
+            }
+        });
         setPreLoadData();
     }
 
 
     @Override
     public void onRefresh() {
-        requestData(0, 50);
+        if (top250Adapter != null) {
+            top250Adapter.clear();
+        }
+        requestData(0, 20);
     }
 
     public void setPreLoadData() {
@@ -71,7 +92,7 @@ public class Top250Fragment extends BaseFragment implements SwipeRefreshLayout.O
             @Override
             public void run() {
                 mSwipeRefreshLayout.setRefreshing(true);
-                requestData(0, 20);
+                onRefresh();
             }
         });
     }
@@ -100,6 +121,9 @@ public class Top250Fragment extends BaseFragment implements SwipeRefreshLayout.O
                     @Override
                     public void onNext(Top250Bean top250Bean) {
                         if (top250Bean != null) {
+                            recyclerView.showFootProgressEnd();
+
+                            mTop250Bean = top250Bean;
                             mList = top250Bean.getSubjects();
                             if (top250Adapter == null) {
                                 top250Adapter = new Top250Adapter(getContext(), mList);

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,10 @@ import com.udaye.movie.R;
 import com.udaye.movie.adapter.CommingSoonAdapter;
 import com.udaye.movie.entity.CommonBean;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
+import com.udaye.tablet.superloadlibrary.GridRecyclerView;
+import com.udaye.tablet.superloadlibrary.OnLoadMoreListener;
+import com.udaye.tablet.superloadlibrary.SuperRecyclerView;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,12 +29,13 @@ import rx.schedulers.Schedulers;
  */
 public class CommingSoonFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    RecyclerView mRecyclerView;
+    GridRecyclerView mRecyclerView;
     GridLayoutManager mGridLayoutManager;
     CommingSoonAdapter mCommingSoonAdapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     List<CommonBean.SubjectsBean> mSubjectsEntities;
+    CommonBean mCommonBean;
 
     public static CommingSoonFragment newInstance() {
         Bundle args = new Bundle();
@@ -47,13 +51,13 @@ public class CommingSoonFragment extends BaseFragment implements SwipeRefreshLay
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        mRecyclerView = (GridRecyclerView) view.findViewById(R.id.recyclerview);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mGridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
+        mGridLayoutManager = new GridLayoutManager(getContext(), 3);
         mGridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -65,16 +69,32 @@ public class CommingSoonFragment extends BaseFragment implements SwipeRefreshLay
                 }
             }
         });
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.addItemDecoration(new GridMarginDecoration(
                 getResources().getDimensionPixelSize(R.dimen.grid_item_spacing)));
         mRecyclerView.setHasFixedSize(true);
-
+        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(SuperRecyclerView recyclerView) {
+                if (mCommonBean != null) {
+                    if (mCommonBean.isHasNext()) {
+                        recyclerView.showFootProgress();
+                        requestDefaultData(mCommonBean.getNextIndex());
+                    } else {
+                        recyclerView.showFootProgressEnd();
+                    }
+                }
+            }
+        });
         setPreLoadData();
     }
 
     @Override
     public void onRefresh() {
-        requestDefaultData();
+        if (mCommingSoonAdapter != null) {
+            mCommingSoonAdapter.clear();
+        }
+        requestDefaultData(0);
     }
 
     public void setPreLoadData() {
@@ -82,16 +102,16 @@ public class CommingSoonFragment extends BaseFragment implements SwipeRefreshLay
             @Override
             public void run() {
                 mSwipeRefreshLayout.setRefreshing(true);
-                requestDefaultData();
+                onRefresh();
             }
         });
     }
 
-    private void requestDefaultData() {
-        mRepository.getCommingSoonMovie(0, 20)
+    private void requestDefaultData(int pageIndex) {
+        mRepository.getCommingSoonMovie(pageIndex, 20)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<CommonBean.SubjectsBean>>() {
+                .subscribe(new Subscriber<CommonBean>() {
                     @Override
                     public void onCompleted() {
                         if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
@@ -101,15 +121,15 @@ public class CommingSoonFragment extends BaseFragment implements SwipeRefreshLay
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
                         if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                     }
 
                     @Override
-                    public void onNext(List<CommonBean.SubjectsBean> subjectsBeen) {
-                        mSubjectsEntities = subjectsBeen;
+                    public void onNext(CommonBean commonBean) {
+                        mCommonBean = commonBean;
+                        mSubjectsEntities = commonBean.getSubjects();
                         if (mCommingSoonAdapter == null) {
                             mCommingSoonAdapter = new CommingSoonAdapter(mSubjectsEntities, getActivity());
                             mRecyclerView.setAdapter(mCommingSoonAdapter);

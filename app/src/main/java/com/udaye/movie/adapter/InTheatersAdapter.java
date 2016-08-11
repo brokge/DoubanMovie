@@ -15,27 +15,25 @@ import java.util.List;
 import com.udaye.movie.R;
 import com.udaye.movie.entity.TheatersMoive;
 import com.udaye.movie.ui.main.MovieDetailActivity;
+import com.udaye.tablet.superloadlibrary.*;
+import com.udaye.tablet.superloadlibrary.CommonViewHolder;
 
 /**
  * Created  on 16-6-6.
  * <p/>
  * 正在上映电影 - 数据适配器
  */
-public class InTheatersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private Context mContext;
-
-    List<TheatersMoive.SubjectsEntity> mList;
+public class InTheatersAdapter extends com.udaye.tablet.superloadlibrary.RecyclerViewCommonAdapter<TheatersMoive.SubjectsEntity> {
 
     public InTheatersAdapter(List<TheatersMoive.SubjectsEntity> list, Context context) {
-        mList = list;
-        mContext = context;
+        super(context, list, R.layout.view_list_item_home);
     }
 
     public void update(List<TheatersMoive.SubjectsEntity> list) {
         mList = list;
         notifyDataSetChanged();
     }
+/*
 
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,8 +41,9 @@ public class InTheatersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         PhotoViewHolder holder = new PhotoViewHolder(view);
         return holder;
     }
+*/
 
-    @Override
+   /* @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         PhotoViewHolder photoViewHolder = (PhotoViewHolder) holder;
         final TheatersMoive.SubjectsEntity entity = mList.get(position);
@@ -59,14 +58,31 @@ public class InTheatersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 mContext.startActivity(MovieDetailActivity.getCallingIntent(mContext, entity.getId()));
             }
         });
-    }
+    }*/
 
     @Override
     public int getItemCount() {
         return mList.size();
     }
 
+    @Override
+    public void onListBindViewHolder(CommonViewHolder holder, int position) {
+        final TheatersMoive.SubjectsEntity entity = mList.get(position);
+        Glide.with(mContext)
+                .load(mList.get(position).getImages().getLarge())
+                .placeholder(android.R.color.white)
+                .into((ImageView) holder.getView(R.id.photo));
+        holder.setText(R.id.tv_movie_name, entity.getTitle());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(MovieDetailActivity.getCallingIntent(mContext, entity.getId()));
+            }
+        });
 
+    }
+
+/*
     final class PhotoViewHolder extends RecyclerView.ViewHolder {
 
         ImageView photo;
@@ -77,5 +93,5 @@ public class InTheatersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             photo = (ImageView) itemView.findViewById(R.id.photo);
             name = (TextView) itemView.findViewById(R.id.tv_movie_name);
         }
-    }
+    }*/
 }

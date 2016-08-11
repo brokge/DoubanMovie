@@ -1,4 +1,4 @@
-package com.udaye.movie.adapter;
+package com.udaye.tablet.superloadlibrary;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-//import cn.dxy.android.aspirin.ui.widget.FooterLoadView;
-
+/**
+ */
 public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter {
 
-    private static final int HEADER_TYPE = Integer.MIN_VALUE;
-    private static final int FOOTER_TYPE = Integer.MIN_VALUE + 1;
+    public static final int HEADER_TYPE = Integer.MIN_VALUE;
+    public static final int FOOTER_TYPE = Integer.MIN_VALUE + 1;
 
     protected List<T> mList;
     protected Context mContext;
@@ -23,7 +23,7 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter 
     private View headView;
     private View footView;
 
-    //  private FooterLoadView mFooterLoadView;
+    private FooterLoadView mFooterLoadView;
 
     /**
      * @param mContext    上下文对象
@@ -47,13 +47,6 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter 
         notifyDataSetChanged();
     }
 
-    public void update(ArrayList<T> list) {
-        hideFootProgress();
-        mList = list;
-        notifyDataSetChanged();
-    }
-
-
     /**
      * 清空所有数据
      */
@@ -61,6 +54,7 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter 
         this.mList.clear();
         removeFootView();
         removeHeadView();
+        notifyDataSetChanged();
     }
 
     /**
@@ -104,26 +98,27 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter 
     /**
      * 加载更多
      */
-   /* public void showFootProgress(){
-        if(this.mFooterLoadView == null){
+    public void showFootProgress() {
+        if (this.mFooterLoadView == null) {
             this.mFooterLoadView = new FooterLoadView(mContext);
         }
         this.mFooterLoadView.setState(FooterLoadView.State.Loading, true);
         addFootView(this.mFooterLoadView);
-    }*/
+    }
 
 
     /**
      * 已经加载全部
      */
-  /*  public void showFootLoadEnd(){
-        if(this.mFooterLoadView == null){
+    public void showFootLoadEnd() {
+        if (this.mFooterLoadView == null) {
             this.mFooterLoadView = new FooterLoadView(mContext);
         }
         this.mFooterLoadView.setState(FooterLoadView.State.TheEnd, true);
         addFootView(this.mFooterLoadView);
         autoHideFootView();
-    }*/
+    }
+
     private void autoHideFootView() {
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
@@ -143,16 +138,17 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter 
 
     /**
      * 显示loadmore 出错
+     *
      * @param onClickListener
      */
-   /* public void showLoadError(View.OnClickListener onClickListener){
-        if(this.mFooterLoadView == null){
+    public void showLoadError(View.OnClickListener onClickListener) {
+        if (this.mFooterLoadView == null) {
             this.mFooterLoadView = new FooterLoadView(mContext);
         }
         this.mFooterLoadView.setState(FooterLoadView.State.NetWorkError, true);
         this.mFooterLoadView.setOnClickListener(onClickListener);
         addFootView(this.mFooterLoadView);
-    }*/
+    }
 
     /**
      * @param parent

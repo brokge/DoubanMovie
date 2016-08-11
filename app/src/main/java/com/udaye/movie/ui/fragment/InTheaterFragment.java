@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,10 @@ import com.udaye.movie.R;
 import com.udaye.movie.adapter.InTheatersAdapter;
 import com.udaye.movie.entity.TheatersMoive;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
+import com.udaye.tablet.superloadlibrary.GridRecyclerView;
+import com.udaye.tablet.superloadlibrary.OnLoadMoreListener;
+import com.udaye.tablet.superloadlibrary.SuperRecyclerView;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -25,7 +28,7 @@ import rx.schedulers.Schedulers;
  * Created on 16/6/27.
  */
 public class InTheaterFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-    RecyclerView mRecyclerView;
+    GridRecyclerView mRecyclerView;
     GridLayoutManager mGridLayoutManager;
     InTheatersAdapter mTheaterAdapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -47,13 +50,13 @@ public class InTheaterFragment extends BaseFragment implements SwipeRefreshLayou
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        mRecyclerView = (GridRecyclerView) view.findViewById(R.id.recyclerview);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mGridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
+        mGridLayoutManager = new GridLayoutManager(getActivity(), 3);
         mGridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -67,9 +70,16 @@ public class InTheaterFragment extends BaseFragment implements SwipeRefreshLayou
                 }
             }
         });
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.addItemDecoration(new GridMarginDecoration(
                 getResources().getDimensionPixelSize(R.dimen.grid_item_spacing)));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(SuperRecyclerView recyclerView) {
+                // recyclerView.showFootProgress();
+            }
+        });
 
         setPreLoadData();
     }
@@ -103,7 +113,6 @@ public class InTheaterFragment extends BaseFragment implements SwipeRefreshLayou
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
                         if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
