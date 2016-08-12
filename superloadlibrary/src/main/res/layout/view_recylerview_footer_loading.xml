@@ -8,9 +8,9 @@
 
     <ProgressBar
         android:id="@+id/load_icon"
+        style="@style/Style.Circle.ProgressBar"
         android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="?android:progressBarStyleSmall" />
+        android:layout_height="40dp" />
 
     <TextView
         android:id="@+id/loading_text"
