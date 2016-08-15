@@ -22,8 +22,8 @@ import java.util.List;
 import com.udaye.movie.R;
 import com.udaye.movie.entity.MovieDetailBean;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
-import com.udaye.tablet.superloadlibrary.CommonViewHolder;
-import com.udaye.tablet.superloadlibrary.RecyclerViewCommonAdapter;
+import com.udaye.library.pullloadlibrary.CommonViewHolder;
+import com.udaye.library.pullloadlibrary.RecyclerViewCommonAdapter;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

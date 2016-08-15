@@ -14,9 +14,9 @@ import com.udaye.movie.R;
 import com.udaye.movie.adapter.CommingSoonAdapter;
 import com.udaye.movie.entity.CommonBean;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
-import com.udaye.tablet.superloadlibrary.GridRecyclerView;
-import com.udaye.tablet.superloadlibrary.OnLoadMoreListener;
-import com.udaye.tablet.superloadlibrary.SuperRecyclerView;
+import com.udaye.library.pullloadlibrary.GridRecyclerView;
+import com.udaye.library.pullloadlibrary.OnLoadMoreListener;
+import com.udaye.library.pullloadlibrary.SuperRecyclerView;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

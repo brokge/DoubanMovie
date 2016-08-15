@@ -1,12 +1,8 @@
 package com.udaye.movie.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -15,15 +11,14 @@ import java.util.List;
 import com.udaye.movie.R;
 import com.udaye.movie.entity.TheatersMoive;
 import com.udaye.movie.ui.main.MovieDetailActivity;
-import com.udaye.tablet.superloadlibrary.*;
-import com.udaye.tablet.superloadlibrary.CommonViewHolder;
+import com.udaye.library.pullloadlibrary.CommonViewHolder;
 
 /**
  * Created  on 16-6-6.
  * <p/>
  * 正在上映电影 - 数据适配器
  */
-public class InTheatersAdapter extends com.udaye.tablet.superloadlibrary.RecyclerViewCommonAdapter<TheatersMoive.SubjectsEntity> {
+public class InTheatersAdapter extends com.udaye.library.pullloadlibrary.RecyclerViewCommonAdapter<TheatersMoive.SubjectsEntity> {
 
     public InTheatersAdapter(List<TheatersMoive.SubjectsEntity> list, Context context) {
         super(context, list, R.layout.view_list_item_home);

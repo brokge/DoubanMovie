@@ -14,7 +14,7 @@ import com.udaye.movie.R;
 import com.udaye.movie.adapter.UsBoxAdapter;
 import com.udaye.movie.entity.UsBoxBean;
 import com.udaye.movie.util.RecyclerViewUtil.GridMarginDecoration;
-import com.udaye.tablet.superloadlibrary.LinearRecyclerView;
+import com.udaye.library.pullloadlibrary.LinearRecyclerView;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

@@ -9,8 +9,8 @@ import java.util.List;
 import com.udaye.movie.R;
 import com.udaye.movie.entity.UsBoxBean;
 import com.udaye.movie.ui.main.MovieDetailActivity;
-import com.udaye.tablet.superloadlibrary.CommonViewHolder;
-import com.udaye.tablet.superloadlibrary.RecyclerViewCommonAdapter;
+import com.udaye.library.pullloadlibrary.CommonViewHolder;
+import com.udaye.library.pullloadlibrary.RecyclerViewCommonAdapter;
 
 /**
  * 北美排行榜
