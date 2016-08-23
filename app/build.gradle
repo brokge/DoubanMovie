@@ -45,5 +45,6 @@ dependencies {
     compile('com.android.support:cardview-v7:24.1.1') {
         force = true;
     }
-    compile project(':superloadlibrary')
+    compile 'com.udaye.library:pulltoload:1.0.0'
+    //compile project(':superloadlibrary')
 }
